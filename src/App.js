@@ -1,24 +1,58 @@
-import logo from './logo.svg';
+
 import './App.css';
+import About from './components/About';
+import Navbar from './components/Navbar';
+import Textfrom from './components/Textfrom';
+import React,{useState} from 'react';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+
+} from "react-router-dom";
 
 function App() {
+  const [darkMode, setDarkMode] = useState('light');
+
+  const [modeName, setmodeName] = useState('Dark Mode');
+
+  const toggler=()=>{
+    if(darkMode==='dark'){
+      setDarkMode('light');
+      document.body.style.backgroundColor='white';
+      setmodeName('Dark Mode');
+
+    }
+    else{
+      setDarkMode('dark');
+   
+      document.body.style.backgroundColor='slateblue';
+      setmodeName('Light Mode');
+    }
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Router>
+    <Navbar title="Text Utilles" mode={darkMode} toggleMode={toggler} modeName1={modeName}/>
+    <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          
+          <Route path="/">
+          <Textfrom heading='Enter Your Text Here: ' mode={darkMode}/>
+  
+          </Route>
+    </Switch>
+    
+    
+   
+    </Router>
+    </>
+   
   );
 }
 
